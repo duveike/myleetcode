@@ -56,6 +56,19 @@
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
+        if(head==null || head.next==null) {
+            return head;
+        }
+        ListNode pre = null;
+        ListNode cur = head;
+        while(head!=null){
+            ListNode next = head.next;
+            cur = head;
+            cur.next = pre;
+            pre = cur;
+            head=next;
+        }
+        return pre;
 
     }
 }
