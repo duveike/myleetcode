@@ -1,0 +1,36 @@
+class Solution {
+    public int[] sortArray(int[] nums) {
+        int left = 0;
+        int right = nums.length-1;
+        quickSort(nums,left,right);
+        return nums;
+    }
+
+    private void quickSort(int[]arr, int lo, int hi) {
+        if(lo>=hi) {
+            return;
+        }
+        int mid = partition(arr,lo,hi);
+        quickSort(arr,lo,mid-1);
+        quickSort(arr, mid+1,hi);
+    }
+
+    private int partition(int[]arr, int lo, int hi) {
+        int n=arr[lo];
+        int i=lo;
+        int j=hi;
+        while(i<j) {
+            while(i<j && arr[j]>=n) j--;
+            if(i<j)arr[i++]=arr[j];
+            while(i<j && arr[i]<n)i++;
+            if(i<j)arr[j--]=arr[i];
+        }
+        arr[j]=n;
+        return j;
+    }
+
+
+}
+
+//runtime:2164 ms
+//memory:56.4 MB
