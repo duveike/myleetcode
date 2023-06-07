@@ -1,0 +1,38 @@
+class Solution {
+
+    private List<List<Integer>> res = new ArrayList<>();
+
+    public List<List<Integer>> permute(int[] nums) {
+        dfs(nums,0);
+        return res;
+    }
+
+    private void dfs(int[]nums, int idx) {
+        if(idx >= nums.length) {
+            res.add(buildList(nums));
+            return;
+        }
+        for(int i=idx;i< nums.length;i++) {
+            swap(nums,idx,i);
+            dfs(nums,idx+1);
+            swap(nums,idx,i);
+        }
+    }
+
+    private List buildList(int[] nums) {
+        List<Integer> ans = new ArrayList<>();
+        for(int n:nums) {
+            ans.add(n);
+        }
+        return ans;
+    }
+
+    private void swap(int[]nums, int i, int j) {
+        int t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
+    }
+}
+
+//runtime:0 ms
+//memory:41.5 MB
