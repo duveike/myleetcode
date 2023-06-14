@@ -1,0 +1,40 @@
+class Solution {
+    public String minWindow(String s, String t) {
+        if(t.length()>s.length()) return "";
+        int[] sletter = new int[128];
+        int[] tletter = new int[128];
+        for(int i=0;i<t.length();i++) {
+            tletter[t.charAt(i)-'A']++;
+        }
+
+        String res = s + "*";
+        for(int i=0,j=0;j<s.length();) {
+            sletter[s.charAt(j)-'A']++;
+            if(j-i+1 < t.length()) {
+                j++;
+                continue;
+            } else {
+                while(i<=j && isInclude(sletter, tletter)) {
+                    if(res.length()>=j-i+1) {
+                        res = s.substring(i, j+1);
+                    }
+                    sletter[s.charAt(i)-'A']--;
+                    i++;
+                }
+                j++;
+            }
+        }
+        return res.length() > s.length()? "" : res;
+    }
+
+    private boolean isInclude(int[]arr1, int[]arr2) {
+        for(int i=0;i<128;i++) {
+            if(arr1[i]<arr2[i]) return false;
+        }
+        return true;
+    }
+
+}
+
+//runtime:15 ms
+//memory:42.4 MB

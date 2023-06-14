@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        
+        int len=nums.size();
+        for(int i=0;i<len;i++)
+        {
+            if(nums[i]>0)
+            {
+                while(nums[i]>0 && nums[i]<=len && nums[i] != nums[nums[i]-1])
+                {
+                    swap(nums[i],nums[nums[i]-1]);
+                }
+            }
+        }
+        
+        int res=1;
+        for(int i=0;i<len;i++)
+        {
+            if(nums[i]!=res)return res;
+            else
+            {
+                res++;
+            }
+        }
+        
+        return res;
+        
+        
+        
+        
+        /*map<int,int>map;
+        for(auto c:nums)
+            map[c]++;
+        auto iter=map.begin();
+        for(;iter!=map.end();)
+        {
+            if(iter->first <=0)iter++;
+            else break;
+        }
+        
+        int res=1;
+        while(iter!=map.end())
+        {
+            if(iter->first == res)
+            {
+                iter++;
+                res++;
+            }
+            else return res;
+        }
+        return res;*/
+    }
+};
+//runtime:4 ms
+//memory:8.5 MB
